@@ -6,7 +6,7 @@ from pages.shortcuts import render_template as render_html_template
 from scripts.shortcuts import render_js_template
 from pages.context import get_context
 
-def get_page_part3(request):
+def get_page_part(request):
 	
 	req = json.loads(request.raw_post_data)
 	h_section = get_html_section(req['path'], request)
@@ -14,7 +14,7 @@ def get_page_part3(request):
 	
 	print h_context
 	
-	j_section = get_js_section('js/' + h_context['js'], request)
+	j_section = get_js_section('scripts/' + h_context['js'], request)
 	
 	h_template = req['template']
 	
