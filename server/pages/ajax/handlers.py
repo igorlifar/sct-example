@@ -11,9 +11,7 @@ def get_page_part(request):
 	req = json.loads(request.raw_post_data)
 	h_section = get_html_section(req['path'], request)
 	h_context = get_context(h_section, request)
-	
-	print h_context
-	
+		
 	j_section = get_js_section('scripts/' + h_context['js'], request)
 	
 	h_template = req['template']
