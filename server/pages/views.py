@@ -1,9 +1,10 @@
-from pages.sections import get_section
-from pages.context import get_context
 from pages.shortcuts import render_to_response as render
+from pages.site.nodes import RootNode
 
 def index(request):
-	section = get_section(request)
-	context = get_context(section, request)
+
+	root = RootNode(request)
+	section = root.get_section()
+	context = root.get_context()
 	
 	return render(section, context, request)

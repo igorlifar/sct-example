@@ -1,23 +1,25 @@
-from django.http import Http404
+class SectionNode(object):
+
+	child = None
+	local_section = []
+
+	def _get_local_context(self):
+		return {}
+
+	def get_context(self):
+		
+		context = self._get_local_context()
+
+		if self.child:
+			context.update(self.child.get_context())
+
+		return context
+
+	def get_section(self):
+		section = self.local_section
+		if self.child:
+			section += self.child.get_section()
+
+		return section
 
 
-class SectionException(Exception):
-	def __init__(self, value):
-		self.value = value
-
-	def __str__(self):
-		return repr(self.value)
-
-
-def get_path_section(path, request):
-	path = ('/index' + path).strip('/').split('/')[1:]
-	l = len(path)
-
-	if l == 0:
-		return ['index']
-
-	raise Http404
-
-
-def get_section(request):
-	return get_path_section(request.path, request)
